@@ -8,7 +8,7 @@ FILES = index.tmpl license.tmpl lists.tmpl bugs.tmpl demos.tmpl		\
 cgi-overview.tmpl tutorial.tmpl lib-overview.tmpl COPYING COPYING.LIB	\
 COPYING.DOC header.html footer.html cgicc-doc.css
 
-IMAGES = cgicc.png gnu-head-sm.jpg
+IMAGES = $(srcdir)/cgicc.png $(srcdir)/gnu-head-sm.jpg
 
 EXTRA_DIST = html stamp index.tmpl license.tmpl lists.tmpl bugs.tmpl demos.tmpl		\
 cgi-overview.tmpl tutorial.tmpl lib-overview.tmpl COPYING COPYING.LIB	\
@@ -24,7 +24,7 @@ clean-local:
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)@htmldir@
-	for file in $(srcdir)/html/*; do \
+	for file in $(builddir)/html/*; do \
 		bn="`basename $$file`"; \
 	 	$(INSTALL_DATA) $$file $(DESTDIR)@htmldir@/$$bn; \
 	done
@@ -42,14 +42,14 @@ stamp: Doxyfile $(FILES) $(top_srcdir)/cgicc/*.h $(top_srcdir)/demo/*.cpp
 
 ## Generate documentation
 html-doc:
-	if test ! -d html; then \
-		mkdir html; \
+	if test ! -d $(builddir)/html; then \
+		mkdir $(builddir)/html; \
 	fi;
 	DATE=`date '+%-d %b %Y'` VERSION=$(VERSION) $(DOXYGEN) Doxyfile
-	cp $(IMAGES) cgicc-doc.css html
-	if test ! -d html/index.html; then \
-		echo empty> html/index.html; \
+	cp $(IMAGES) $(srcdir)/cgicc-doc.css $(builddir)/html
+	if test ! -d $(builddir)/html/index.html; then \
+		echo empty> $(builddir)/html/index.html; \
 	fi;
-	mv html/index.html html/index.html.bak
-	sed -e '$(SEDCMD1)' -e '$(SEDCMD2)' html/index.html.bak > html/index.html
-	rm -f html/index.html.bak
+	mv $(builddir)/html/index.html $(builddir)/html/index.html.bak
+	sed -e '$(SEDCMD1)' -e '$(SEDCMD2)' $(builddir)/html/index.html.bak > $(builddir)/html/index.html
+	rm -f $(builddir)/html/index.html.bak
