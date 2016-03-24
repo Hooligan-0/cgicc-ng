@@ -500,6 +500,10 @@ namespace cgicc {
     { return fRedirectStatus; }
     //@}
     
+    inline std::string
+    getOrigin()					const
+    { return fOrigin; }
+    
   protected:
     
     // ============================================================
@@ -573,6 +577,7 @@ namespace cgicc {
     std::string 		fCookie;
     std::vector<HTTPCookie> 	fCookies;
     std::string                 fAcceptLanguageString; 
+    std::string                 fOrigin;
   };
   
 } // namespace cgicc

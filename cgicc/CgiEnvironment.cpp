@@ -260,6 +260,8 @@ cgicc::CgiEnvironment::readEnvironmentVariables(CgiInput *input)
   fReferrer 		= input->getenv("HTTP_REFERER");
   fCookie 		= input->getenv("HTTP_COOKIE");
   fAcceptLanguageString = input->getenv("HTTP_ACCEPT_LANGUAGE"); 
+  
+  fOrigin               = input->getenv("HTTP_ORIGIN");
 
   // Win32 bug fix by Peter Goedtkindt 
   std::string https 	= input->getenv("HTTPS");
